@@ -16,7 +16,7 @@ class ProductController extends Controller
         // dd(\App\Models\Product::with(['detail', 'features'])->latest()->get()->toArray());
 
         return Inertia::render('admin/Product', [
-            'products' => \App\Models\Product::with(['detail', 'features'])->latest()->paginate(10),
+            'products' => \App\Models\Product::with(['detail', 'features'])->latest()->paginate(10)->withQueryString(),
             'categories' => \App\Models\Category::with('subCategories')->get()
         ]);
     }

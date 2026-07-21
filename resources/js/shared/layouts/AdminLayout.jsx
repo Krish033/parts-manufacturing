@@ -30,7 +30,7 @@ export default function AdminLayout({ title, header, children, className='' }) {
         >
             {isSideBarOpen ? <Sidebar /> : <Mobilebar />}
 
-            <div className={`w-full`}>
+            <div className={`flex-1 w-full min-w-0 flex flex-col h-full overflow-hidden`}>
                 <Navigation
                     onOpenSideBar={() => setIsSideBarOpen((state) => !state)}
                     onNotificationClick={() => {

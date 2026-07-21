@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -51,4 +52,10 @@ Route::prefix('admin')
         Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
         Route::post('/roles/save', [RoleController::class, 'save'])->name('save-role');
         Route::post('/delete-role', [RoleController::class, 'destroy'])->name('delete-role');
+
+        Route::get('/settings', [SettingController::class, 'index'])->name('admin.settings');
+        Route::post('/settings', [SettingController::class, 'save'])->name('admin.settings.save');
+
+        Route::get('/profile', [SettingController::class, 'profile'])->name('admin.profile');
+        Route::post('/profile', [SettingController::class, 'updateProfile'])->name('admin.profile.update');
     });

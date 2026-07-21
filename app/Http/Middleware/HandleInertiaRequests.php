@@ -56,11 +56,12 @@ class HandleInertiaRequests extends Middleware
             'activeCart' => $this->cart->getActiveCartName(),
             'default_address' => Auth::check() ? $this->address->getDefault() : null,
 
-            'make' => ProductDetail::distinct('id make')->get(['make', 'id']),
-            'model' => ProductDetail::distinct('id model')->get(['model', 'id']),
+            'make' => ProductDetail::whereNotNull('make')->where('make', '!=', '')->distinct('make')->get(['make', 'id']),
+            'model' => ProductDetail::whereNotNull('model')->where('model', '!=', '')->distinct('model')->get(['model', 'id']),
 
             'route' => $request->route(),
             'notifications' => \App\Models\Notification::where('user_id', '=', '0')->get(),
+            'site_settings' => \App\Models\SiteSetting::getSettings(),
 
             'flash' => [
                 'success' => fn() => $request->session()->get('success'),

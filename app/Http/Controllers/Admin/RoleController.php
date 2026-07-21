@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class RoleController extends Controller {
     public function index() {
-        $roles = Role::latest()->paginate(10);
+        $roles = Role::latest()->paginate(10)->withQueryString();
         return Inertia::render('admin/Role', [
             'roles' => $roles,
             'permissions' => $this->availablePermissions()

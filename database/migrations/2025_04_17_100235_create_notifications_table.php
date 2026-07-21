@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->boolean('status')->default(0); 
+            $table->boolean('status')->default(0);
+            $table->string('image')->nullable();
+            $table->string('type')->nullable();
+            $table->bigInteger('registered_user_id')->nullable();
+            $table->bigInteger('user_id')->default(0);
+            $table->text('others')->nullable();
             $table->timestamps();
         });
     }

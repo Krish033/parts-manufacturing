@@ -75,6 +75,12 @@ export default function Product({ products, categories }) {
         form.setData("detail", { ...detailsData });
     };
 
+    const hasPermission = (permission) => {
+        const perms = auth?.permissions;
+        if (!Array.isArray(perms)) return true;
+        return perms.includes('*') || perms.includes(permission);
+    };
+
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction
@@ -85,7 +91,7 @@ export default function Product({ products, categories }) {
                     });
                 }}
             />
-        ) : auth.permissions.includes("create_products") ? (
+        ) : hasPermission("create_products") ? (
             <ProductForm {...form} categories={categories} />
         ) : null;
 

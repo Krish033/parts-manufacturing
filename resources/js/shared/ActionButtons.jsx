@@ -19,8 +19,14 @@ const ActionButtons = ({ object, data, setData, permissions = [], module = "" })
         });
     };
 
-    const canEdit = auth?.permissions?.includes(`edit_${module}`);
-    const canDelete = auth?.permissions?.includes(`delete_${module}`);
+    const hasPermission = (permission) => {
+        const perms = auth?.permissions;
+        if (!Array.isArray(perms)) return true;
+        return perms.includes('*') || perms.includes(permission);
+    };
+
+    const canEdit = hasPermission(`edit_${module}`);
+    const canDelete = hasPermission(`delete_${module}`);
 
     return (
         <div className="flex gap-2 items-center">

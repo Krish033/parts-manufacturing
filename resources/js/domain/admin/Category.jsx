@@ -39,10 +39,16 @@ export default function Category({ categories }) {
         });
     };
 
+    const hasPermission = (permission) => {
+        const perms = auth?.permissions;
+        if (!Array.isArray(perms)) return true;
+        return perms.includes('*') || perms.includes(permission);
+    };
+
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Category" onDelete={handleDelete} />
-        ) : auth.permissions.includes("create_categories") ? (
+        ) : hasPermission("create_categories") ? (
             <CategoryForm
                 data={data}
                 errors={errors}

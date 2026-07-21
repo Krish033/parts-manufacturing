@@ -16,7 +16,8 @@ class UserController extends Controller
             'users' => User::whereNotNull('password')
                 ->select('id', 'name', 'email', 'issuer_phone', 'created_at')
                 ->orderBy('created_at', 'desc')
-                ->paginate(10),
+                ->paginate(10)
+                ->withQueryString(),
         ]);
     }
 

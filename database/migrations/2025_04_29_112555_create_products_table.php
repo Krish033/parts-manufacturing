@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('image');
             $table->string('name');
-            $table->string('slug');
+            $table->string('part_number')->nullable();
+            $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->bigInteger('user_id');
             $table->boolean('is_active')->default(true);

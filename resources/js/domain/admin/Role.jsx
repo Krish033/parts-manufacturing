@@ -37,10 +37,16 @@ export default function Role({ roles, permissions }) {
         });
     };
 
+    const hasPermission = (permission) => {
+        const perms = auth?.permissions;
+        if (!Array.isArray(perms)) return true;
+        return perms.includes('*') || perms.includes(permission);
+    };
+
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Role" onDelete={handleDelete} />
-        ) : auth.permissions.includes("create_roles") ?  (
+        ) : hasPermission("create_roles") ?  (
             <RoleForm
                 data={data}
                 errors={errors}

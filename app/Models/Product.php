@@ -60,7 +60,20 @@ class Product extends Model
 
     public function getImageAttribute($image)
     {
-        return Str::startsWith($image, 'http') ? $image : url('/storage/' . $image);
+        if (!$image) {
+            return null;
+        }
+
+        if (Str::startsWith($image, ['http://', 'https://'])) {
+            return $image;
+        }
+
+        $cleanPath = ltrim($image, '/');
+        if (Str::startsWith($cleanPath, 'storage/')) {
+            $cleanPath = substr($cleanPath, 8);
+        }
+
+        return url('storage/' . $cleanPath);
     }
 
 

@@ -21,8 +21,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
         'status',
-        'wishlist'
+        'wishlist',
+        'cnr_number',
+        'vat_number',
+        'address_line_1',
+        'country',
+        'state',
+        'city',
+        'pin_code',
+        'issuer_name',
+        'issuer_phone',
+        'accountant_name',
+        'accountant_phone',
+        'authority_name',
+        'authority_phone',
     ];
 
     /**

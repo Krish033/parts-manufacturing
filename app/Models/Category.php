@@ -46,12 +46,20 @@ class Category extends Model
 
 
     public function getImageAttribute(string|null $image) {
-
-        if(!$image) {
+        if (!$image) {
             return null;
         }
 
-        return Str::startsWith($image, 'http') ? $image : url('/storage/' . $image);
+        if (Str::startsWith($image, ['http://', 'https://'])) {
+            return $image;
+        }
+
+        $cleanPath = ltrim($image, '/');
+        if (Str::startsWith($cleanPath, 'storage/')) {
+            $cleanPath = substr($cleanPath, 8);
+        }
+
+        return url('storage/' . $cleanPath);
     }
 }
  

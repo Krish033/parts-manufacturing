@@ -40,10 +40,16 @@ export default function SubCategory({ subCategories, categories }) {
         });
     };
 
+    const hasPermission = (permission) => {
+        const perms = auth?.permissions;
+        if (!Array.isArray(perms)) return true;
+        return perms.includes('*') || perms.includes(permission);
+    };
+
     const formContent =
         getObjectMountState() === "deleting" ? (
             <DefaultDeleteAction title="Sub Category" onDelete={handleDelete} />
-        ) : auth.permissions.includes("create_subcategories") ? (
+        ) : hasPermission("create_subcategories") ? (
             <SubCategoryForm
                 data={data}
                 errors={errors}

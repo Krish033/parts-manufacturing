@@ -62,7 +62,7 @@ export default function SubCategoryForm({
                 <InputError message={errors.slug} className="mt-2" />
             </div>
 
-            <div className="mt-[8em]">
+            <div className="mt-6">
                 <FormSubmitButtons />
             </div>
         </form>

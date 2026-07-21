@@ -21,6 +21,10 @@ return new class extends Migration
             $table->integer('length')->nullable();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
+            $table->double('weight')->nullable();
+            $table->string('make')->nullable();
+            $table->string('model')->nullable();
+            $table->text('product_details')->nullable();
             $table->timestamps();
         });
     }
