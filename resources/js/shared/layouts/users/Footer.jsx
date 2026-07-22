@@ -1,10 +1,11 @@
 import FooterLogo from "@/public/images/general/Estbanh White Logo.png";
 import { Footer as FooterIcons } from "@/components/icons";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 const Footer = () => {
     const { Facebook, Twitter, Insta, Youtube, SendIcon, FooterIcon } =
         FooterIcons;
+    const { site_settings } = usePage().props;
 
     return (
         <>
@@ -40,11 +41,11 @@ const Footer = () => {
 
                 <section className="footer-bg px-[8em] h-[50vh] flex flex-col justify-end pb-10 z-0">
                     <div className="grid grid-cols-12 gap-3 lg:gap-14">
-                        <div className="col-span-12 md:col-span-6 lg:col-span-3 space-y-3">
+                        <div className="col-span-12 md:col-span-6 lg:col-span-3 mt-6 space-y-3">
                             <img
-                                src={FooterLogo}
-                                alt=""
-                                className="w-32 mb-4 mx-auto md:mx-0"
+                                src={site_settings?.logo ? `/storage/${site_settings.logo}` : FooterLogo}
+                                alt={site_settings?.site_name || "Logo"}
+                                className="w-32 max-h-24 object-contain mb-4 mx-auto md:mx-0"
                             />
                             <div className="flex space-x-3 justify-center md:justify-start">
                                 <div className="bg-white rounded-full p-1">
@@ -70,12 +71,12 @@ const Footer = () => {
 
                                 <div className="space-y-2">
                                     {[
-                                        { title: "Find your part", url: "" },
-                                        { title: "Parts Catalogue", url: "" },
-                                        { title: "Model Search", url: "" },
+                                        { title: "Find your part", url: route("products-list", { search: "all" }) },
+                                        { title: "Parts Catalogue", url: route("products-list", { search: "all" }) },
+                                        { title: "Model Search", url: route("products-list", { search: "all" }) },
                                         {
                                             title: "Technical Documents",
-                                            url: "",
+                                            url: route("technical-documents"),
                                         },
                                     ].map((el, index) => (
                                         <Link
@@ -103,11 +104,11 @@ const Footer = () => {
                                     {[
                                         {
                                             title: "Returns & Exchanges",
-                                            url: "",
+                                            url: route("returns-exchange"),
                                         },
-                                        { title: "Repair Services", url: "" },
-                                        { title: "Help Center", url: "" },
-                                        { title: "FAQs", url: "" },
+                                        { title: "Repair Services", url: route("repair-services") },
+                                        { title: "Help Center", url: route("help-center") },
+                                        { title: "FAQs", url: route("faq") },
                                     ].map((el, index) => (
                                         <Link
                                             className="flex items-center gap-2"
@@ -135,17 +136,17 @@ const Footer = () => {
                                         {
                                             title: "Office",
                                             icon: "",
-                                            value: "+91 23134 39234",
+                                            value: site_settings?.contact_phone || "+91 23134 39234",
                                         },
                                         {
                                             title: "Mail",
                                             icon: "",
-                                            value: "info@yourappname.com",
+                                            value: site_settings?.contact_email || "info@yourappname.com",
                                         },
                                         {
                                             title: "Address",
                                             icon: "",
-                                            value: "123 Tech Park, Innovation Street, Sector 45, New City, 560001, India",
+                                            value: site_settings?.contact_address || "123 Tech Park, Innovation Street, Sector 45, New City, 560001, India",
                                         },
                                     ].map((el, index) => (
                                         <div
@@ -253,7 +254,7 @@ const Footer = () => {
 
                 <section className="bg-secondary  flex justify-center items-center">
                     <span className="font-main font-normal p-1 text-[13px]">
-                        © 2025 Estbanh. all rights reserved.
+                        {site_settings?.footer_text || `© ${new Date().getFullYear()} ${site_settings?.site_name || "Estbanh"}. All rights reserved.`}
                     </span>
                 </section>
             </footer>

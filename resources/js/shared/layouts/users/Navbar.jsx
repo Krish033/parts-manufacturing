@@ -5,7 +5,7 @@ import { Location, Cart, Discount, Heart, Truck } from "@/components/icons";
 import { Link, usePage } from "@inertiajs/react";
 import AuthState from "@/shared/AuthState";
 import Dropdown from "@/components/Dropdown";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Phone } from "lucide-react";
 
 const Navbar = () => {
     const user = usePage().props?.auth?.user;
@@ -46,6 +46,16 @@ const Navbar = () => {
                                 My Orders
                             </Link>
                         </div>
+                        {usePage().props.site_settings?.contact_phone && (
+                            <div className="flex mx-2 items-center">
+                                <div className="me-1">
+                                    <Phone size={16} />
+                                </div>
+                                <span className="font-main font-regular text-[13px]">
+                                    {usePage().props.site_settings.contact_phone}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -56,7 +66,7 @@ const Navbar = () => {
                         href={route("home")}
                         className="flex items-center justify-between gap-5"
                     >
-                        <img src={Logo} className="w-32 md:w-100" />
+                        <img src={usePage().props.site_settings?.logo ? `/storage/${usePage().props.site_settings.logo}` : Logo} className="h-10 md:h-12 w-auto object-contain" alt={usePage().props.site_settings?.site_name || "Logo"} />
                     </Link>
                     <SearchBar />
                     <div className="flex items-center gap-10">

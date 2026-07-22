@@ -70,6 +70,15 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/', [ControllersProductController::class, 'index'])->name('home');
+Route::get('/offers', [ControllersProductController::class, 'offers'])->name('offers');
 Route::post('/search', [ControllersProductController::class, 'search'])->name('search');
 Route::get('/view-product/{product}', [ControllersProductController::class, 'view'])->name('view-product');
-Route::get('/products/{search}', [ControllersProductController::class, 'searchProduct'])->name('products-list');
+Route::get('/products', [ControllersProductController::class, 'searchProduct'])->name('products-list');
+
+// Static Pages
+use App\Http\Controllers\PageController;
+Route::get('/technical-documents', [PageController::class, 'technicalDocuments'])->name('technical-documents');
+Route::get('/faq', [PageController::class, 'faq'])->name('faq');
+Route::get('/help-center', [PageController::class, 'helpCenter'])->name('help-center');
+Route::get('/repair-services', [PageController::class, 'repairServices'])->name('repair-services');
+Route::get('/returns-exchange', [PageController::class, 'returnsExchange'])->name('returns-exchange');

@@ -90,10 +90,18 @@ const SearchBar = () => {
                 </form>
 
                 {dataset.length > 0 && (
-                    <div className="absolute w-full mt-2 bg-white shadow-md rounded-md p-3 space-y-3">
-                        {dataset.map((item, index) => (
+                    <div className="absolute w-full mt-2 bg-white shadow-md rounded-md p-3 space-y-3 max-h-[60vh] overflow-y-auto">
+                        {dataset.slice(0, 5).map((item, index) => (
                             <Suggestion suggestion={item} key={index} />
                         ))}
+                        {dataset.length > 5 && (
+                            <button
+                                onClick={submit}
+                                className="w-full text-center text-primary font-main font-medium py-2 mt-2 border border-gray-200 hover:bg-gray-50 rounded-md transition-colors"
+                            >
+                                View all {dataset.length} results
+                            </button>
+                        )}
                     </div>
                 )}
 

@@ -259,15 +259,22 @@ class CartRepository implements Cart
      */
     protected function product(Product $product, array|Collection|Model|EloquentCollection $cart): array
     {
+        $unitPrice = $product->discount_price;
+        $qty = $cart['quantity'];
+        
+        if ($qty >= 10 && $product->detail && $product->detail->bulk_discount_percentage > 0) {
+            $unitPrice = $unitPrice * (1 - ($product->detail->bulk_discount_percentage / 100));
+        }
+
         return [
             "id" => $product->id,
             "name" => $product->name,
             "part_number" => $product->part_number,
             "image" => $product->image,
-            "gross_amount" => intval($product->discount_price * $cart['quantity']),
-            "quantity" => $cart['quantity'],
-            "net_amount" => ($product->discount_price - $product->gst) * $cart['quantity'],
-            "weight" => $product->weight * $cart['quantity'],
+            "gross_amount" => intval($unitPrice * $qty),
+            "quantity" => $qty,
+            "net_amount" => ($unitPrice - $product->gst) * $qty,
+            "weight" => $product->weight * $qty,
         ];
     }
 }

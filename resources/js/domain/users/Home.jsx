@@ -1,5 +1,6 @@
 import UserLayout from "@/shared/layouts/UserLayout";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage, router } from "@inertiajs/react";
+import { useState } from "react";
 
 import BanSideImg from "@/public/images/home/banner-sider.png";
 import { PrimaryButton } from "@/shared";
@@ -18,11 +19,26 @@ import HomeScreenBannerSlider from "./_partials/home/HomeScreenBannerSlider";
 import CustomerReview from "./_partials/home/CustomerReview";
 import ProductBanner from "./_partials/home/ProductBanner";
 import useSearchHistory from "@/lib/hooks/useSearchHistory";
+import ListItem from "./_partials/products/ListItem";
 
-export default function Home({ products }) {
+export default function Home({ products, topSelling, highestRated }) {
     const { getRepeatedSearches } = useSearchHistory();
     const user = usePage().props?.auth?.user;
     const { make, model } = usePage().props;
+
+    const [selectedMake, setSelectedMake] = useState("");
+    const [selectedModel, setSelectedModel] = useState("");
+
+    const availableModels = selectedMake ? model?.filter(m => m.make === selectedMake) : model;
+
+    const handleSearch = () => {
+        const query = `${selectedMake} ${selectedModel}`.trim();
+        if (query) {
+            router.visit(route("products-list", { search: query }));
+        } else {
+            router.visit(route("products-list", { search: "all" }));
+        }
+    };
 
     return (
         <UserLayout>
@@ -43,37 +59,44 @@ export default function Home({ products }) {
 
                     <div className="p-1 rounded-[10px] w-full md:w-4/5 flex space-x-2 bg-white shadow-md border-2 border-gray-200">
                         <select
-                            name=""
-                            id=""
+                            name="make"
+                            id="make"
+                            value={selectedMake}
+                            onChange={(e) => {
+                                setSelectedMake(e.target.value);
+                                setSelectedModel("");
+                            }}
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] pe-2 md:pe-auto w-1/2"
                         >
-                            <option value="Make">Make</option>
+                            <option value="">Make</option>
                             {make &&
                                 make?.map((m) => (
-                                    <option key={m.id} value={m.id}>
+                                    <option key={m.id} value={m.make}>
                                         {m.make}
                                     </option>
                                 ))}
                         </select>
 
                         <select
-                            name=""
-                            id=""
+                            name="model"
+                            id="model"
+                            value={selectedModel}
+                            onChange={(e) => setSelectedModel(e.target.value)}
                             className="border-none rounded-md focus:outline-none focus:ring-0 focus:ring-white text-zinc-500 text-[12px] md:text-[15px] me-2 md:pe-auto w-full"
                         >
-                            <option value="Make">Select your Model</option>
-                            {model &&
-                                model?.map((m) => (
-                                    <option key={m.id} value={m.id}>
+                            <option value="">Select your Model</option>
+                            {availableModels &&
+                                availableModels?.map((m) => (
+                                    <option key={m.id} value={m.model}>
                                         {m.model}
                                     </option>
                                 ))}
                         </select>
-                        <button className="text-gray-500 text-[13px] font-primary">
+                        <button onClick={() => { setSelectedMake(""); setSelectedModel(""); }} className="text-gray-500 text-[13px] font-primary">
                             Clear
                         </button>
 
-                        <PrimaryButton className="flex gap-1 items-center">
+                        <PrimaryButton onClick={handleSearch} className="flex gap-1 items-center">
                             <Search />
                             <span className="text-[14px]">Search</span>
                         </PrimaryButton>
@@ -109,16 +132,7 @@ export default function Home({ products }) {
             </section>
             <ProductsSection />
 
-            <section className="mt-[5em] ">
-                <div className="flex justify-center">
-                    <h2 className="w-max text-sm px-3 font-normal  text-[#454545] rounded-full bg-[#EDEEF1] font-main">
-                        BEST SELLERS
-                    </h2>
-                </div>
-                <h3 className="text-primary text-3xl font-main font-medium text-center heading-with-lines">
-                    Popular Products of the Month
-                </h3>
-            </section>
+
 
             <section className="px-[10em] mt-[3em] mb-[5em]">
                 <ProductBanner />

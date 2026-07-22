@@ -15,6 +15,11 @@ const ViewProduct = ({ product }) => {
         quantity: 1,
     });
 
+    const hasDiscount = product.regular_price > product.discount_price;
+    const discountPercentage = hasDiscount 
+        ? Math.round(((product.regular_price - product.discount_price) / product.regular_price) * 100) 
+        : 0;
+
     const decrement = (e) => {
         e.preventDefault();
 
@@ -106,14 +111,31 @@ const ViewProduct = ({ product }) => {
                                 <div className="flex gap-2 items-end">
                                     <span className="text-4xl font-medium font-main text-black">
                                         ₹
-                                        {product.discount_price * data.quantity}
+                                        {(product.discount_price * data.quantity).toFixed(2)}
                                     </span>
                                     <span className="text-sm text-gray-600 font-main">
-                                        {product.discount_price}/piece
+                                        ₹{product.discount_price}
+                                        {hasDiscount && (
+                                            <>
+                                                <span className="line-through text-gray-400 ml-1">
+                                                    ₹{product.regular_price}
+                                                </span>
+                                                <span className="text-green-600 font-bold ml-2">
+                                                    {discountPercentage}% OFF
+                                                </span>
+                                            </>
+                                        )}
+                                        /piece
                                     </span>
                                 </div>
 
-                                <p className="text-[12px] text-gray-600 font-main">
+                                {product?.detail?.bulk_discount_percentage > 0 && (
+                                    <p className="mt-2 text-[13px] text-green-600 font-medium font-main bg-green-50 p-2 rounded inline-block">
+                                        ✨ Special Offer: Buy 10+ items and get an extra {product.detail.bulk_discount_percentage}% off your order!
+                                    </p>
+                                )}
+
+                                <p className="text-[12px] text-gray-600 font-main mt-1">
                                     Excluding VAT and Shipping
                                 </p>
                             </div>

@@ -9,7 +9,7 @@ import { AdminDefaultProvider } from "./lib/context/AdminDefaultContext";
 import { RegisterProvider } from "./lib/context/RegisterContext.jsx";
 import ToastProvider from "./lib/providers/ToastProvider";
 
-const appName = import.meta.env.VITE_APP_NAME || "Laravel";
+const appName = window.App?.name || import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

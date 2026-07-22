@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import {
     Section2Product1  as Section2_Product1,
     Section2Product2 as Section2_Product2,
@@ -20,9 +21,9 @@ const ProductsSection = () => {
                             <h2 className="text-xl text-black font-main font-semibold">
                                 Find the Right Parts, Fast and Easy!
                             </h2>
-                            <button className="bg-white hover:bg-gray-100 text-black font-main shadow-md font-medium py-2 px-4 rounded-full text-[12px] transition-all">
+                            <Link href={route("products-list", { search: "all" })} className="bg-white hover:bg-gray-100 text-black font-main shadow-md font-medium py-2 px-4 rounded-full text-[12px] transition-all inline-block w-fit">
                                 Checkout now!
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex justify-end my-auto">
                             <img
@@ -43,9 +44,9 @@ const ProductsSection = () => {
                             <h2 className="text-xl text-white font-main font-medium">
                                 Bringing Reliable Parts to Your Doorstep!
                             </h2>
-                            <button className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
+                            <Link href={route("products-list", { search: "all" })} className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all inline-block w-fit">
                                 Browse Parts
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex justify-end my-auto w-4/6">
                             <img
@@ -69,9 +70,9 @@ const ProductsSection = () => {
                             <h2 className="text-lg text-black font-main font-medium">
                                 Smart Solutions for Every Project!
                             </h2>
-                            <button className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
+                            <Link href={route("products-list", { search: "all" })} className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all inline-block w-fit">
                                 Discover More
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex justify-end my-auto">
                             <img
@@ -92,9 +93,9 @@ const ProductsSection = () => {
                             <h2 className="text-lf text-black font-main font-medium">
                                 Your One-Stop Shop for Electronics & More!
                             </h2>
-                            <button className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
+                            <Link href={route("products-list", { search: "all" })} className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all inline-block w-fit">
                                 Unlock Deals
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex justify-end my-auto">
                             <img
@@ -117,9 +118,9 @@ const ProductsSection = () => {
                             </h2>
                          
 
-                            <button className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
+                            <Link href={route("products-list", { search: "all" })} className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all inline-block w-fit">
                             Shop Now
-                            </button>
+                            </Link>
                         </div>
                         <div className="flex justify-end my-auto">
                             <img

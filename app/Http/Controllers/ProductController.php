@@ -16,11 +16,24 @@ class ProductController extends Controller
 
     public function index()
     {
-
-        /* dd(dd(auth()->user()); ); */
-        /* dd(auth()->user()); */
         return Inertia::render('users/Home', [
-            'products' => Product::take(3)->get()
+            'products' => Product::take(6)->get(),
+            'topSelling' => Product::orderBy('sales_count', 'desc')->take(4)->get(),
+            'highestRated' => Product::orderBy('rating', 'desc')->take(4)->get(),
+        ]);
+    }
+
+    public function offers()
+    {
+        $products = Product::with('detail')
+            ->whereHas('detail', function($q) {
+                $q->whereColumn('sale_price', '<', 'regular_price')
+                  ->orWhereNotNull('bulk_discount_percentage');
+            })
+            ->paginate(10);
+
+        return Inertia::render('users/Offers', [
+            'products' => $products
         ]);
     }
 
@@ -45,10 +58,57 @@ class ProductController extends Controller
 
 
 
-    public function searchProduct(Request $request, string $search)
+    public function searchProduct(Request $request)
     {
+        $search = $request->input('search', 'all');
+        $query = Product::with('detail');
+
+        if ($search && $search !== 'all') {
+            $searchTerms = explode(' ', $search);
+            foreach ($searchTerms as $term) {
+                if (empty(trim($term))) continue;
+                $query->where(function($q) use ($term) {
+                    $q->where('part_number', 'like', '%' . $term . '%')
+                      ->orWhere('name', 'like', '%' . $term . '%')
+                      ->orWhereHas('detail', function($q2) use ($term) {
+                          $q2->where('make', 'like', '%' . $term . '%')
+                             ->orWhere('model', 'like', '%' . $term . '%');
+                      });
+                });
+            }
+        }
+
+        // Apply filters from Request
+        if ($request->filled('make')) {
+            $query->whereHas('detail', function($q) use ($request) {
+                $q->where('make', $request->make);
+            });
+        }
+
+        if ($request->filled('model')) {
+            $query->whereHas('detail', function($q) use ($request) {
+                $q->where('model', $request->model);
+            });
+        }
+
+        if ($request->filled('warranty')) {
+            $query->whereHas('detail', function($q) use ($request) {
+                $q->where('warranty', $request->warranty);
+            });
+        }
+
+        if ($request->boolean('discounted')) {
+            $query->whereHas('detail', function($q) {
+                $q->whereColumn('sale_price', '<', 'regular_price')
+                  ->orWhereNotNull('bulk_discount_percentage');
+            });
+        }
+
+        $products = $query->paginate(10)->withQueryString();
+
         return Inertia::render('users/ProductList', [
-            'products' => Product::where('part_number', 'like', '%' . $search . '%')->get()
+            'products' => $products,
+            'search' => $search
         ]);
     }
 

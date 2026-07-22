@@ -26,7 +26,7 @@ const Suggestion = ({ suggestion }) => {
                         {suggestion.name}
                     </p>
 
-                    <Text className="">{suggestion.description}</Text>
+                    <Text className="text-xs line-clamp-1 text-gray-500 mt-1">{suggestion.description}</Text>
                 </div>
                 <div className="rounded-md p-0 md:p-2 my-auto flex md:block space-x-2 md:space-x-0 md:space-y-3">
                     <Link href={route("view-product", suggestion.id)}>

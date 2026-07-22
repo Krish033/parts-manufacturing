@@ -57,7 +57,7 @@ class HandleInertiaRequests extends Middleware
             'default_address' => Auth::check() ? $this->address->getDefault() : null,
 
             'make' => ProductDetail::whereNotNull('make')->where('make', '!=', '')->distinct('make')->get(['make', 'id']),
-            'model' => ProductDetail::whereNotNull('model')->where('model', '!=', '')->distinct('model')->get(['model', 'id']),
+            'model' => ProductDetail::whereNotNull('model')->where('model', '!=', '')->distinct('model')->get(['model', 'make', 'id']),
 
             'route' => $request->route(),
             'notifications' => \App\Models\Notification::where('user_id', '=', '0')->get(),

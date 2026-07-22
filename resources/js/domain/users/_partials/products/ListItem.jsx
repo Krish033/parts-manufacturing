@@ -3,7 +3,7 @@ import { Link, router, useForm, usePage } from "@inertiajs/react";
 import { Minus, Plus } from "lucide-react";
 import { memo, useState } from "react";
 
-const ListItem = ({ product }) => {
+const ListItem = ({ product, isSelected, onToggle }) => {
     const { data, setData, errors, post } = useForm({
         productId: product.id,
         quantity: 1,
@@ -48,10 +48,20 @@ const ListItem = ({ product }) => {
 
     return (
         <div className="bg-white border-2 flex items-center overflow-hidden border-gray-300 rounded-xl max-h-46 mb-5">
-            <div className="relative w-1/4 h-[233px]">
+            <div className="relative w-1/4 h-[233px] flex items-center justify-center bg-white">
+                {onToggle && (
+                    <div className="absolute top-3 left-3 z-10 bg-white/80 p-1 rounded shadow-sm">
+                        <input 
+                            type="checkbox" 
+                            checked={isSelected || false} 
+                            onChange={onToggle} 
+                            className="w-5 h-5 rounded border-gray-300 text-secondary focus:ring-secondary cursor-pointer"
+                        />
+                    </div>
+                )}
                 <button
                     onClick={togglewishlist}
-                    className="absolute top-2 right-2 bg-[#FFEEC6]/40 p-1 rounded-full w-fit"
+                    className="absolute top-2 right-2 bg-[#FFEEC6]/80 p-1 rounded-full w-fit z-10 hover:bg-[#FFEEC6] transition-colors"
                 >
                     <HeartIcon
                         fill={
@@ -64,7 +74,7 @@ const ListItem = ({ product }) => {
                 <img
                     src={product.image}
                     alt="image"
-                    className="w-full h-full object-cover "
+                    className="w-full h-full object-contain p-2"
                 />
             </div>
 
@@ -74,17 +84,22 @@ const ListItem = ({ product }) => {
                         <p className="text-[14px] font-main text-gray-600 uppercase">
                             {product.part_number}
                         </p>
-                        <h1 className="text-lg mt-1 font-main font-normal">
+                        <h1 className="text-lg mt-1 font-main font-bold">
                             {product.name}
                         </h1>
 
-                        <div className="flex gap-2 items-center mt-1 text-[14px] font-main text-gray-600">
-                            <span>
+                        <div className="flex flex-wrap gap-2 items-center mt-1 text-[14px] font-main text-gray-600">
+                            <span className="whitespace-nowrap">
                                 ₹{product.discount_price}
-                                /peice |
+                                {product.regular_price > product.discount_price && (
+                                    <span className="line-through text-gray-400 ml-1 text-[12px]">
+                                        ₹{product.regular_price}
+                                    </span>
+                                )}
+                                /piece <span className="hidden sm:inline">|</span>
                             </span>
 
-                            <span className="flex items-center gap-2">
+                            <span className="flex items-center gap-1 sm:gap-2 whitespace-nowrap text-[13px] sm:text-[14px]">
                                 <TimeIcon size={18} />
                                 No returns or cancellations
                             </span>
@@ -116,8 +131,8 @@ const ListItem = ({ product }) => {
                 <div className="mt-5 mb-2 font-main text-[13px] w-full  flex">
                     <div className="flex flex-col gap-2 w-1/2">
                         <div className="flex justify-between">
-                            <span>Warrenty </span>
-                            <span className="text-gray-700">None </span>
+                            <span>Warranty </span>
+                            <span className="text-gray-700">{product?.detail?.warranty || "None"}</span>
                         </div>
                         <div className="flex justify-between">
                             <span>Reference </span>

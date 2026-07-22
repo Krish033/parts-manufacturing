@@ -1,10 +1,11 @@
 import "@/public/images/Styles/style.css";
 import React from "react";
 import {RegisterProvider} from "@/lib/context/RegisterContext.jsx";
+import { usePage } from "@inertiajs/react";
 
 
 export default function UserRegisterLayout({ children }) {
-
+    const { site_settings } = usePage().props;
 
     return (
         <div className="min-h-screen gap-5 px-[1em] flex items-center justify-center bg-[#111827] text-white">
@@ -13,7 +14,7 @@ export default function UserRegisterLayout({ children }) {
 
             <div
                 className="w-[700px] flex flex-col justify-center items-center px-10 py-10 bg-gradient-to-br from-[#111827] to-[#1f2937] text-left">
-                <img src="/img/Estbanh White Logo 3.png" alt="Estbanh Logo" className="w-40 mb-6"/>
+                <img src={site_settings?.logo ? `/storage/${site_settings.logo}` : "/img/Estbanh White Logo 3.png"} alt={site_settings?.site_name || "Logo"} className="h-24 w-auto object-contain mb-6"/>
                 <h2 className="text-lg font-bold uppercase tracking-wide text-gray-300 mb-1 text-center">
                     MEETING TOMORROW'S
                     <br/> ENERGY NEEDS

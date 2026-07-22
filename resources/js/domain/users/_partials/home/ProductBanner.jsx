@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import {
     Section3Product,
     Section3Product2,
@@ -11,52 +12,52 @@ import {
 const ProductBanner = () => {
     const productBanner = [
         {
-            Heading: "Top-Rated Motors",
-            Description: "Powerful, efficient, and built to last",
-            ButtonLink: "#",
-            Image: Section3Product,
-        },
-        {
-            Heading: "High-Performance Sensors",
-            Description: "Accuracy you can trust.",
-            ButtonLink: "#",
-            Image: Section3Product2,
-        },
-        {
-            Heading: "Durable Cables & Wires",
-            Description: "Stable and reliable connections.",
-            ButtonLink: "#",
-            Image: Section3Product3,
-        },
-        {
-            Heading: "Essential Switches",
-            Description: "Smooth control every time.",
-            ButtonLink: "#",
-            Image: Section3Product4,
-        },
-        {
-            Heading: "Robust Power Supplies",
-            Description: "Consistent power flow.",
-            ButtonLink: "#",
-            Image: Section3Product5,
-        },
-        {
-            Heading: "Reliable Connectors",
-            Description: "Secure and strong links.",
-            ButtonLink: "#",
-            Image: Section3Product6,
-        },
-        {
-            Heading: "Efficient Cooling Fans",
-            Description: "Keep your machines cool.",
-            ButtonLink: "#",
+            Heading: "Alternators",
+            Description: "Power your vehicle reliably.",
+            SearchQuery: "Alternator",
             Image: Section3Product7,
         },
         {
-            Heading: "Versatile Tools",
-            Description: "Quick fixes made easy.",
-            ButtonLink: "#",
+            Heading: "Ignition Coils",
+            Description: "Consistent spark for peak performance.",
+            SearchQuery: "Ignition Coil",
+            Image: Section3Product6,
+        },
+        {
+            Heading: "Starter Motors",
+            Description: "Start your engine with confidence.",
+            SearchQuery: "Starter Motor",
             Image: Section3Product,
+        },
+        {
+            Heading: "Spark Plugs",
+            Description: "Maximize fuel efficiency and power.",
+            SearchQuery: "Spark Plug",
+            Image: Section3Product4,
+        },
+        {
+            Heading: "Car Batteries",
+            Description: "Long-lasting power for all models.",
+            SearchQuery: "Battery",
+            Image: Section3Product5,
+        },
+        {
+            Heading: "Brake Pads",
+            Description: "Superior stopping power & safety.",
+            SearchQuery: "Brake Pad",
+            Image: Section3Product2,
+        },
+        {
+            Heading: "Air Filters",
+            Description: "Keep your engine breathing clean.",
+            SearchQuery: "Air Filter",
+            Image: Section3Product3,
+        },
+        {
+            Heading: "Oil Filters",
+            Description: "Protect your engine from wear.",
+            SearchQuery: "Oil Filter",
+            Image: Section3Product3,
         },
     ];
 
@@ -74,9 +75,9 @@ const ProductBanner = () => {
                         {item.Description}
                     </p>
                     <div className="flex items-start justify-between space-x-2">
-                        <button className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
+                        <Link href={route("products-list", { search: item.SearchQuery })} className="bg-secondary text-black font-main font-medium py-2 px-4 rounded-full text-[12px] hover:bg-orange-400 transition-all">
                             Shop Now
-                        </button>
+                        </Link>
                         <img src={item.Image} alt="" className="w-2/5" />
                     </div>
                 </div>

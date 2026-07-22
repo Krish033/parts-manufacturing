@@ -12,7 +12,8 @@ class ProductDetail extends Model
     protected $fillable = [
         'product_id', 'category_id', 'sub_category_id', 
         'sale_price', 'regular_price', 'weight', 
-        'height', 'length', 'width', 'make', 'model', 'product_details'
+        'height', 'length', 'width', 'make', 'model', 'product_details',
+        'warranty', 'bulk_discount_percentage'
     ];
 
 

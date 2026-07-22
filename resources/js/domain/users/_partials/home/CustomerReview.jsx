@@ -31,8 +31,8 @@ const CustomerReview = () => {
                             setActiveIndex(swiper.activeIndex)
                         }
                         navigation={{
-                            nextEl: ".swiper-button-next",
-                            prevEl: ".swiper-button-prev",
+                            nextEl: ".custom-next",
+                            prevEl: ".custom-prev",
                         }}
                         className="relative"
                     >
@@ -451,10 +451,10 @@ const CustomerReview = () => {
                     </Swiper>
 
                     {/* Navigation Buttons */}
-                    <button className="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 md:-translate-y-1/4 z-10 bg-white p-10 scale-[0.3] lg:scale-[0.5] rounded-full shadow-lg">
+                    <button className="custom-prev absolute left-4 top-1/2 transform -translate-y-1/2 md:-translate-y-1/4 z-10 bg-white p-2 rounded-full shadow-lg flex items-center justify-center">
                         <ChevronLeft size={24} />
                     </button>
-                    <button className="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 md:-translate-y-1/4 z-10 bg-white p-10 scale-[0.3] lg:scale-[0.5] rounded-full shadow-lg">
+                    <button className="custom-next absolute right-4 top-1/2 transform -translate-y-1/2 md:-translate-y-1/4 z-10 bg-white p-2 rounded-full shadow-lg flex items-center justify-center">
                         <ChevronRight size={24} />
                     </button>
 

@@ -59,7 +59,7 @@
 
 <body>
   <div class="container">
-    <p class="label">Account Activated • YourWebsite</p>
+    <p class="label">Account Activated • {{ \App\Models\SiteSetting::getSettings()->site_name }}</p>
 
     <div class="heading">Welcome, {{ $user->name }}</div>
 

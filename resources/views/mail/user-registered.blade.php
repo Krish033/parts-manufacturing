@@ -62,7 +62,7 @@
 
 <body>
   <div class="container">
-    <p class="label">Admin Notification • ESTBANH</p>
+    <p class="label">Admin Notification • {{ \App\Models\SiteSetting::getSettings()->site_name }}</p>
 
     <div class="heading">New Registration Request</div>
 
@@ -82,7 +82,7 @@
     </p>
 
     <div class="footer">
-      This is an automated message. You're receiving this because you're listed as an administrator on ESTBANH.
+      This is an automated message. You're receiving this because you're listed as an administrator on {{ \App\Models\SiteSetting::getSettings()->site_name }}.
     </div>
   </div>
 </body>

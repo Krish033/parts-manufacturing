@@ -23,7 +23,7 @@ class Product extends Model
 
 
 
-    protected $appends = ['images', 'discount_price'];
+    protected $appends = ['images', 'discount_price', 'regular_price'];
 
 
     protected $fillable = [
@@ -31,7 +31,9 @@ class Product extends Model
         'part_number',
         'image',
         'description',
-        'user_id'
+        'user_id',
+        'sales_count',
+        'rating'
     ];
 
 
@@ -109,6 +111,11 @@ class Product extends Model
         }
 
         return $this->regular_price ?? 0.00;
+    }
+
+    public function getRegularPriceAttribute()
+    {
+        return $this->detail->regular_price ?? 0.00;
     }
 
 
